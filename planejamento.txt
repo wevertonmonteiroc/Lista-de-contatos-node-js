@@ -1,0 +1,13 @@
+API de LISTA DE CONTATOS:
+
+ - Criar um novo contato;
+ - Listar contatos;
+ - Excluir contatos;
+
+
+
+Planejamento de rotas:
+
+- POST /contato { name: "Fulano", id: "0" }
+- GET /contatos
+- DELETE /contato?name=Fulano
