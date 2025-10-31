@@ -28,5 +28,15 @@ router.post('/contato', async (req, res) => {
 
 });
 
+router.get('/contatos', async (requestAnimationFrame, res) => {
+    let list: string[] = [];
+    try {
+        const data = await readFile(dataSource, { encoding: 'utf8'});
+        list = data.split('\n');
+    } catch (err){}
+
+    res.json({ contatos: list});
+})
+
 
 export default router;
