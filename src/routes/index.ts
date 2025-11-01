@@ -1,3 +1,4 @@
+import { error } from 'console';
 import express from 'express';
 import { readFile, writeFile } from 'fs/promises';
 
@@ -37,6 +38,26 @@ router.get('/contatos', async (requestAnimationFrame, res) => {
 
     res.json({ contatos: list});
 })
+
+router.delete('/contato', async (req, res) => {
+    const { name } = req.query;
+
+    if(!name) {
+        return res.json({ error: 'Precisa mandar um nome para excluir!'});
+    }
+
+    let list: string[] = [];
+    try {
+        const data = await readFile(dataSource, { encoding: 'utf8'});
+        list = data.split('\n');
+    } catch (err) { }
+
+    list = list.filter(item => item.toLowerCase() !== (name as string).toLowerCase());
+
+    await writeFile(dataSource, list.join('\n'));
+
+    res.json({ contato: name });
+});
 
 
 export default router;
